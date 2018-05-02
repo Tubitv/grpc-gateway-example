@@ -42,10 +42,20 @@ func (m *myService) Echo(c context.Context, s *pb.EchoMessage) (*pb.EchoMessage,
 	return s, nil
 }
 
-func (m *myService) StreamEcho(s pb.EchoService_StreamEchoServer) error {
-	resp, _ := s.Recv()
-	fmt.Printf("rpc request StreamEcho(%q)\n", resp.Value)
-	return nil
+func (m *myService) StreamEcho(stream pb.EchoService_StreamEchoServer) error {
+	for {
+		in, err := stream.Recv()
+		if err == io.EOF {
+			return nil
+		}
+		if err != nil {
+			return err
+		}
+		fmt.Printf("rpc request StreamEcho(%q)\n", in.Value)
+		if err := stream.Send(in); err != nil {
+			return err
+		}
+	}
 }
 
 func newServer() *myService {
