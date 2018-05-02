@@ -40,10 +40,45 @@
           "EchoService"
         ]
       }
+    },
+    "/v1/stream-echo": {
+      "post": {
+        "operationId": "StreamEcho",
+        "responses": {
+          "200": {
+            "description": "(streaming responses)",
+            "schema": {
+              "$ref": "#/definitions/echopbStreamEchoMessage"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "(streaming inputs)",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/echopbStreamEchoMessage"
+            }
+          }
+        ],
+        "tags": [
+          "EchoService"
+        ]
+      }
     }
   },
   "definitions": {
     "echopbEchoMessage": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "echopbStreamEchoMessage": {
       "type": "object",
       "properties": {
         "value": {

@@ -7,10 +7,21 @@ message EchoMessage {
  string value = 1;
 }
 
+message StreamEchoMessage {
+ string value = 1;
+}
+
 service EchoService {
   rpc Echo(EchoMessage) returns (EchoMessage) {
     option (google.api.http) = {
       post: "/v1/echo"
+      body: "*"
+    };
+  }
+
+  rpc StreamEcho(stream StreamEchoMessage) returns (stream StreamEchoMessage) {
+    option (google.api.http) = {
+      post: "/v1/stream-echo"
       body: "*"
     };
   }
