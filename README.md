@@ -13,6 +13,8 @@ $ curl -X POST -k https://localhost:10000/v1/echo -H "Content-Type: text/plain" 
 $ curl -X POST -k https://localhost:10000/v1/stream-echo -H "Content-Type: text/plain" -d $'{"value": "foo"}\n{"value": "bar"}'
 {"result":{"value":"foo"}}
 {"result":{"value":"bar"}}
+$ curl -X POST -k https://localhost:10000/v1/echo -H "Content-Type: text/plain" -d $'{"value": "foo", "options": {"@type": "type.googleapis.com/google.protobuf.Duration","value": "1.212s"}}'
+{"value":"foo","options":{"@type":"type.googleapis.com/google.protobuf.Duration","value":"1.212s"}}
 ```
 
 
